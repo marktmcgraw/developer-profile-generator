@@ -1,0 +1,27 @@
+{
+  "name": "developer-profile-generator",
+  "version": "1.0.0",
+  "description": "A command-line application that dynamically generates a PDF profile from a GitHub username.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "electron": "^5.0.12",
+    "electron-html-to": "^2.6.0",
+    "fs": "^0.0.1-security",
+    "inquirer": "^7.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marktmcgraw/developer-profile-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marktmcgraw/developer-profile-generator/issues"
+  },
+  "homepage": "https://github.com/marktmcgraw/developer-profile-generator#readme"
+}

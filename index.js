@@ -15,8 +15,11 @@
 
 
 const fs = require("fs");
+const convertFactory = require('electron-html-to');
 const axios = require("axios");
 const inquirer = require("inquirer");
+const path = require("path");
+
 inquirer
     .prompt({
         message: "Enter your GitHub username",
@@ -29,29 +32,6 @@ inquirer
                 // handle success
                 // console.log(response.data);
                 
-
-                /*
-                const profileImage = response.data.avatar_url;
-                //console.log(profileImage);
-                const name = response.data.name;
-                //console.log(name);
-                const location = response.data.location;
-                //console.log(location); 
-                const githubProfile = response.data.html_url;
-                //console.log(githubProfile);
-                const userBlog = response.data.blog;
-                //console.log(userBlog);
-                const userBio = response.data.bio;
-                //console.log(userBio);
-                const publicRepoCount = response.data.public_repos;
-                //console.log(publicRepoCount);
-                const followers = response.data.followers;
-                //console.log(followers);
-                const userStars = response.data.starred_URL;
-                //console.log(userStars);
-                const usersFollowing = response.data.following;
-                // console.log(usersFollowing);
-                */
                 const userProfile = {
                     profileImage: response.data.avatar_url, 
                     name: response.data.name,
@@ -84,13 +64,26 @@ inquirer
                 </div>
                 `
                 console.log(profileHTML);
-                ;
+                
+                const conversion = convertFactory({
+                    converterPath: convertFactory.converters.PDF
+                  });
+                   
+                  conversion({ html: profileHTML}, function(err, result) {
+                    if (err) {
+                      return console.error(err);
+                    }
+                   
+                    console.log(result.numberOfPages);
+                    console.log(result.logs);
+                    result.stream.pipe(fs.createWriteStream(path.join(__dirname, "profile.pdf")))
+                    conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
+                  });
                 
                    
             });
 
-            const element = document.getElementById("user-profile");
-            element.innerHTML = profileHTML;
+           
     });
    
 
